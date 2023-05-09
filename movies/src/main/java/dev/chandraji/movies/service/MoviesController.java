@@ -24,7 +24,7 @@ public class MoviesController {
         return new ResponseEntity<>(movieService.allMovies(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/movie")
     public ResponseEntity<Optional<Movie>> findAMovie(@PathVariable String id) {
         return new ResponseEntity<>(movieService.findAMovie(id), HttpStatus.OK);
     }
