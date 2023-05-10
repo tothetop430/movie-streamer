@@ -9,6 +9,9 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ReviewService {
 
@@ -18,8 +21,10 @@ public class ReviewService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public Review createReview(String reviewBody, String imdbId) {
-        Review review = reviewRepository.insert(new Review(reviewBody));
+    public List<Review> createReview(String reviewBody, String imdbId) {
+        List<Review> review = new ArrayList<>();
+        Review tempReview = reviewRepository.insert(new Review(reviewBody));
+        review.add(tempReview);
 
         mongoTemplate.update(Movie.class)
                 .matching(Criteria.where("imdbId").is(imdbId))
